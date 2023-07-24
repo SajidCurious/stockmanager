@@ -8,21 +8,18 @@ export async function GET(request) {
 
   const client = new MongoClient(uri);
 
-  async function run() {
-    try {
-      const database = client.db("sajid");
-      const movies = database.collection("inventory");
+  try {
+    const database = client.db("sajid");
+    const movies = database.collection("inventory");
 
-      // Query for a movie that has the title 'Back to the Future'
-      const query = {};
-      const movie = await movies.findOne(query);
+    // Query for a movie that has the title 'Back to the Future'
+    const query = {};
+    const movie = await movies.find(query).toArray();
 
-      console.log(movie);
-    } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
-    }
+    console.log(movie);
+    return NextResponse.json({ a: 34, movie });
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
   }
-  run().catch(console.dir);
-  return NextResponse.json({ a: 34 });
 }
