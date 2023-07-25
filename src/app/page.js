@@ -64,6 +64,26 @@ export default function Home() {
           </button>
         </form>
       </div>
+      <div className="container my-8 mx-auto">
+        <h1 className="text-3xl font-semibold mb-6">Display Current Stock</h1>
+
+        <table className="table-auto w-full">
+          <thead>
+            <tr>
+              <th className="px-4 py-2">Product Name</th>
+              <th className="px-4 py-2">Quantity</th>
+              <th className="px-4 py-2">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="border px-4 py-2">Product 5</td>
+              <td className="border px-4 py-2">hhkkk</td>
+              <td className="border px-4 py-2">$10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </>
   );
 }
