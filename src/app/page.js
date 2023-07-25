@@ -65,7 +65,7 @@ export default function Home() {
             </button>
           </form>
         </div>
-        <div className="container my-8 mx-auto">
+        <div className="container my-8 mx-auto bg-red-50">
           <h1 className="text-3xl font-semibold mb-6">Display Current Stock</h1>
 
           <table className="table-auto w-full">
