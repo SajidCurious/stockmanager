@@ -1,9 +1,20 @@
 "use client";
 import Header from "./components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [productForm, setproductForm] = useState({});
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch("/api/product");
+      let rjson = await response.json();
+      setProducts(rjson.products);
+    };
+    fetchProducts();
+  }, []);
+
   const addProduct = async (e) => {
     e.preventDefault();
     try {
@@ -113,11 +124,15 @@ export default function Home() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="border px-4 py-2">Product 5</td>
-                <td className="border px-4 py-2">hhkkk</td>
-                <td className="border px-4 py-2">$10</td>
-              </tr>
+              {products.map((item) => {
+                return (
+                  <tr key={item.slug}>
+                    <td className="border px-4 py-2">{item.slug}</td>
+                    <td className="border px-4 py-2">{item.quantity}</td>
+                    <td className="border px-4 py-2">${item.price}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
