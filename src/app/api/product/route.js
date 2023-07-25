@@ -9,15 +9,15 @@ export async function GET(request) {
   const client = new MongoClient(uri);
 
   try {
-    const database = client.db("sajid");
-    const movies = database.collection("inventory");
+    const database = client.db("sajidStocks");
+    const inventory = database.collection("inventory");
 
     // Query for a movie that has the title 'Back to the Future'
     const query = {};
-    const movie = await movies.find(query).toArray();
+    const allProducts = await inventory.find(query).toArray();
 
     console.log(movie);
-    return NextResponse.json({ a: 34, movie });
+    return NextResponse.json({ allProducts });
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
