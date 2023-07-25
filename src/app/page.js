@@ -1,7 +1,36 @@
-import Image from "next/image";
+"use client";
 import Header from "./components/Header";
+import { useState } from "react";
 
 export default function Home() {
+  const [productForm, setproductForm] = useState({});
+  const addProduct = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/product", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productForm),
+      });
+
+      if (response.ok) {
+        // Product added successfully
+        console.log("Your Product has been added!");
+      } else {
+        // Handle error case
+        console.error("Error adding product");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setproductForm({ ...productForm, [e.target.name]: e.target.value });
+  };
+
   return (
     <>
       <Header />
@@ -34,6 +63,8 @@ export default function Home() {
               <input
                 type="text"
                 id="productName"
+                name="slug"
+                onChange={handleChange}
                 className="w-full border border-gray-300 px-4 py-2"
               />
             </div>
@@ -44,6 +75,8 @@ export default function Home() {
               <input
                 type="number"
                 id="quantity"
+                name="quantity"
+                onChange={handleChange}
                 className="w-full border border-gray-300 px-4 py-2"
               />
             </div>
@@ -54,10 +87,13 @@ export default function Home() {
               <input
                 type="number"
                 id="price"
+                name="price"
+                onChange={handleChange}
                 className="w-full border border-gray-300 px-4 py-2"
               />
             </div>
             <button
+              onClick={addProduct}
               type="submit"
               className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg shadow-md font-semibold"
             >
