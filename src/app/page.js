@@ -4,16 +4,16 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [productForm, setproductForm] = useState({});
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await fetch("/api/product");
-      let rjson = await response.json();
-      setProducts(rjson.products);
-    };
-    fetchProducts();
-  }, []);
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     const response = await fetch("/api/product");
+  //     let rjson = response.json();
+  //     setProducts(rjson.products);
+  //   };
+  //   fetchProducts();
+  // }, []);
 
   const addProduct = async (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ export default function Home() {
         console.log("Your Product has been added!");
       } else {
         // Handle error case
-        console.error("Error adding product");
+        console.log("Error adding product");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -124,7 +124,7 @@ export default function Home() {
               </tr>
             </thead>
             <tbody>
-              {products.map((item) => {
+              {/* {products.map((item) => {
                 return (
                   <tr key={item.slug}>
                     <td className="border px-4 py-2">{item.slug}</td>
@@ -132,7 +132,7 @@ export default function Home() {
                     <td className="border px-4 py-2">${item.price}</td>
                   </tr>
                 );
-              })}
+              })} */}
             </tbody>
           </table>
         </div>
