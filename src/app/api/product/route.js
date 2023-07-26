@@ -16,7 +16,7 @@ export async function GET(request) {
     const query = {};
     const allProducts = await inventory.find(query).toArray();
 
-    console.log(movie);
+    // console.log(movie);
     return NextResponse.json({ allProducts });
   } finally {
     // Ensures that the client will close when you finish/error
