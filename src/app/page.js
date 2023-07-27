@@ -5,6 +5,14 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [productForm, setproductForm] = useState({});
   const [products, setProducts] = useState([]);
+  const [dropdown, setDropdown] = useState([
+    {
+      _id: "64c2bb5fa8b24677fa41b83e",
+      slug: "kkkkkkkkk",
+      quantity: "4785",
+      price: "124563",
+    },
+  ]);
 
   useEffect(() => {
     // Fetch products on load
@@ -65,6 +73,15 @@ export default function Home() {
             </select>
           </div>
         </div>
+        {dropdown.map((item) => {
+          return (
+            <div key={item.slug} className="flex justify-around">
+              <span className="slug">{item.slug}</span>
+              <span className="quantity">{item.quantity}</span>
+              <span className="price">{item.price}</span>
+            </div>
+          );
+        })}
 
         {/* Display current Stock */}
         <div className="container bg-red-50 mx-auto">
