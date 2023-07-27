@@ -4,16 +4,18 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [productForm, setproductForm] = useState({});
-  // const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     const response = await fetch("/api/product");
-  //     let rjson = response.json();
-  //     setProducts(rjson.products);
-  //   };
-  //   fetchProducts();
-  // }, []);
+  useEffect(() => {
+    // Fetch products on load
+    const fetchProducts = async () => {
+      const response = await fetch("/api/product");
+      let rjson = await response.json();
+      console.log(rjson);
+      setProducts(rjson.products);
+    };
+    fetchProducts();
+  }, []);
 
   const addProduct = async (e) => {
     e.preventDefault();
@@ -29,6 +31,8 @@ export default function Home() {
       if (response.ok) {
         // Product added successfully
         console.log("Your Product has been added!");
+        alert("Product added successfully");
+        setproductForm({});
       } else {
         // Handle error case
         console.log("Error adding product");
@@ -124,15 +128,18 @@ export default function Home() {
               </tr>
             </thead>
             <tbody>
-              {/* {products.map((item) => {
+              {products?.map((product) => {
+                {
+                  console.log(product);
+                }
                 return (
-                  <tr key={item.slug}>
-                    <td className="border px-4 py-2">{item.slug}</td>
-                    <td className="border px-4 py-2">{item.quantity}</td>
-                    <td className="border px-4 py-2">${item.price}</td>
+                  <tr key={product.slug}>
+                    <td className="border px-4 py-2">{product.slug}</td>
+                    <td className="border px-4 py-2">{product.quantity}</td>
+                    <td className="border px-4 py-2">₹{product.price}</td>
                   </tr>
                 );
-              })} */}
+              })}
             </tbody>
           </table>
         </div>
