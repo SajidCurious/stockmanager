@@ -5,7 +5,15 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [productForm, setproductForm] = useState({});
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState("");
   const [dropdown, setDropdown] = useState([
+    {
+      _id: "64c2bb5fa8b24677fa41b83e",
+      slug: "kkkkkkkkk",
+      quantity: "4785",
+      price: "124563",
+    },
     {
       _id: "64c2bb5fa8b24677fa41b83e",
       slug: "kkkkkkkkk",
@@ -54,6 +62,18 @@ export default function Home() {
     setproductForm({ ...productForm, [e.target.name]: e.target.value });
   };
 
+  const onDropdownEdit = async (e) => {
+    setQuery(e.target.value);
+    if (!loading) {
+      setLoading(true);
+      const response = await fetch("/api/search?query=" + query);
+      let rjson = await response.json();
+      console.log(rjson);
+      setDropdown(rjson.products);
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -63,6 +83,7 @@ export default function Home() {
           <div className="flex mb-6">
             <input
               type="text"
+              onChange={onDropdownEdit}
               placeholder="Enter a Product Name"
               className="flex-1 border border-gray-30"
             />
@@ -73,9 +94,15 @@ export default function Home() {
             </select>
           </div>
         </div>
+        {loading && (
+          <div className="flex justify-center items-center">
+            {" "}
+            <img width={74} src="/loading.svg" alt="" />{" "}
+          </div>
+        )}
         {dropdown.map((item) => {
           return (
-            <div key={item.slug} className="flex justify-around">
+            <div key={item.slug} className="flex justify-around mb-10">
               <span className="slug">{item.slug}</span>
               <span className="quantity">{item.quantity}</span>
               <span className="price">{item.price}</span>
