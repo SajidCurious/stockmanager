@@ -99,11 +99,11 @@ export default function Home() {
                   {item.slug} ({item.quantity} available for {item.price})
                 </span>
                 <div className="space-x-8">
-                  <span className="add text-white px-2 rounded-xl bg-blue-600">
+                  <span className="add text-white px-3 py-1 rounded-lg bg-blue-600">
                     -
                   </span>
                   <span className="sub">{item.quantity}</span>
-                  <span className="add text-white px-2 rounded-xl bg-blue-600">
+                  <span className="add text-white px-3 py-1 rounded-lg bg-blue-600">
                     +
                   </span>
                 </div>
@@ -159,7 +159,7 @@ export default function Home() {
             <button
               onClick={addProduct}
               type="submit"
-              className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg shadow-md font-semibold"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md font-semibold"
             >
               Add Product
             </button>
