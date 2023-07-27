@@ -79,6 +79,7 @@ export default function Home() {
                 type="text"
                 id="productName"
                 name="slug"
+                value={productForm.slug || ""}
                 onChange={handleChange}
                 className="w-full border border-gray-300 px-4 py-2"
               />
@@ -91,6 +92,7 @@ export default function Home() {
                 type="number"
                 id="quantity"
                 name="quantity"
+                value={productForm.quantity || ""}
                 onChange={handleChange}
                 className="w-full border border-gray-300 px-4 py-2"
               />
@@ -103,6 +105,7 @@ export default function Home() {
                 type="number"
                 id="price"
                 name="price"
+                value={productForm.price || ""}
                 onChange={handleChange}
                 className="w-full border border-gray-300 px-4 py-2"
               />
