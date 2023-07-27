@@ -68,10 +68,13 @@ export default function Home() {
       <section className="px-60">
         <div className="container bg-red-50 ">
           <h1 className="text-3xl font-bold mb-6">Search a Product</h1>
-          <div className="flex mb-6">
+          <div className="flex mb-2">
             <input
               type="text"
               onChange={onDropdownEdit}
+              // onBlur={() => {
+              //   setDropdown([]);
+              // }}
               placeholder="Enter a Product Name"
               className="flex-1 border border-gray-30"
             />
@@ -92,9 +95,18 @@ export default function Home() {
           {dropdown.map((item) => {
             return (
               <div key={item.slug} className="flex justify-around mb-10">
-                <span className="slug">{item.slug}</span>
-                <span className="quantity">{item.quantity}</span>
-                <span className="price">{item.price}</span>
+                <span className="slug">
+                  {item.slug} ({item.quantity} available for {item.price})
+                </span>
+                <div className="space-x-8">
+                  <span className="add text-white px-2 rounded-xl bg-blue-600">
+                    -
+                  </span>
+                  <span className="sub">{item.quantity}</span>
+                  <span className="add text-white px-2 rounded-xl bg-blue-600">
+                    +
+                  </span>
+                </div>
               </div>
             );
           })}
