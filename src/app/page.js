@@ -7,20 +7,7 @@ export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
-  const [dropdown, setDropdown] = useState([
-    {
-      _id: "64c2bb5fa8b24677fa41b83e",
-      slug: "kkkkkkkkk",
-      quantity: "4785",
-      price: "124563",
-    },
-    {
-      _id: "64c2bb5fa8b24677fa41b83e",
-      slug: "kkkkkkkkk",
-      quantity: "4785",
-      price: "124563",
-    },
-  ]);
+  const [dropdown, setDropdown] = useState([]);
 
   useEffect(() => {
     // Fetch products on load
@@ -66,6 +53,7 @@ export default function Home() {
     setQuery(e.target.value);
     if (!loading) {
       setLoading(true);
+      setDropdown([]);
       const response = await fetch("/api/search?query=" + query);
       let rjson = await response.json();
       console.log(rjson);
@@ -100,15 +88,17 @@ export default function Home() {
             <img width={74} src="/loading.svg" alt="" />{" "}
           </div>
         )}
-        {dropdown.map((item) => {
-          return (
-            <div key={item.slug} className="flex justify-around mb-10">
-              <span className="slug">{item.slug}</span>
-              <span className="quantity">{item.quantity}</span>
-              <span className="price">{item.price}</span>
-            </div>
-          );
-        })}
+        <div className="bg-red-100 p-5 mb-10">
+          {dropdown.map((item) => {
+            return (
+              <div key={item.slug} className="flex justify-around mb-10">
+                <span className="slug">{item.slug}</span>
+                <span className="quantity">{item.quantity}</span>
+                <span className="price">{item.price}</span>
+              </div>
+            );
+          })}
+        </div>
 
         {/* Display current Stock */}
         <div className="container bg-red-50 mx-auto">
