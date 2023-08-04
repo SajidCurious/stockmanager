@@ -99,13 +99,13 @@ export default function Home() {
                   {item.slug} ({item.quantity} available for {item.price})
                 </span>
                 <div className="space-x-8">
-                  <span className="add text-white px-3 py-1 rounded-lg bg-blue-600">
+                  <button className="add text-white px-3 py-1 rounded-lg bg-blue-600">
                     -
-                  </span>
+                  </button>
                   <span className="sub">{item.quantity}</span>
-                  <span className="add text-white px-3 py-1 rounded-lg bg-blue-600">
+                  <button className="add text-white px-3 py-1 rounded-lg bg-blue-600">
                     +
-                  </span>
+                  </button>
                 </div>
               </div>
             );
