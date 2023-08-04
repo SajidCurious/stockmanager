@@ -22,6 +22,25 @@ export default function Home() {
   }, []);
 
   const buttonAction = async (action, slug, initialQuantity) => {
+    // let index = products.findIndex(function (item) {
+    //   return item.slug == slug;
+    // });
+    // let newProducts = JSON.parse(JSON.stringify(products));
+    // if (action == "plus") {
+    //   newProducts[index].quantity = parseInt(initialQuantity) + 1;
+    // } else {
+    //   newProducts[index].quantity = parseInt(initialQuantity) - 1;
+    // }
+    // setProducts(newProducts);
+
+    // let indexdrop = dropdown.findIndex((item) => item.slug == slug);
+    // let newDropdown = JSON.parse(JSON.stringify(dropdown));
+    // if (action == "plus") {
+    //   newDropdown[indexdrop].quantity = parseInt(initialQuantity) + 1;
+    // } else {
+    //   newDropdown[indexdrop].quantity = parseInt(initialQuantity) - 1;
+    // }
+    // setDropdown(newDropdown);
     setLoadingaction(true);
     // console.log(action, slug);
     const response = await fetch("/api/action", {
@@ -67,7 +86,7 @@ export default function Home() {
 
   const onDropdownEdit = async (e) => {
     setQuery(e.target.value);
-    if (!loading) {
+    if (query.length > 3) {
       setLoading(true);
       setDropdown([]);
       const response = await fetch("/api/search?query=" + query);
@@ -94,11 +113,11 @@ export default function Home() {
               placeholder="Enter a Product Name"
               className="flex-1 border border-gray-30"
             />
-            <select className="border border-gray-300 px-4 py-2 rounded-r-md">
+            {/* <select className="border border-gray-300 px-4 py-2 rounded-r-md">
               <option value="">All</option>
               <option value="">Category 1</option>
               <option value="">Category 2</option>
-            </select>
+            </select> */}
           </div>
         </div>
         {loading && (
@@ -192,33 +211,6 @@ export default function Home() {
               Add Product
             </button>
           </form>
-        </div>
-        <div className="container my-8 mx-auto bg-red-50">
-          <h1 className="text-3xl font-semibold mb-6">Display Current Stock</h1>
-
-          <table className="table-auto w-full">
-            <thead>
-              <tr>
-                <th className="px-4 py-2">Product Name</th>
-                <th className="px-4 py-2">Quantity</th>
-                <th className="px-4 py-2">Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products?.map((product) => {
-                {
-                  console.log(product);
-                }
-                return (
-                  <tr key={product.slug}>
-                    <td className="border px-4 py-2">{product.slug}</td>
-                    <td className="border px-4 py-2">{product.quantity}</td>
-                    <td className="border px-4 py-2">₹{product.price}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
         </div>
       </section>
     </>
