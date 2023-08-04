@@ -8,6 +8,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [dropdown, setDropdown] = useState([]);
+  const [loadingaction, setLoadingaction] = useState(false);
 
   useEffect(() => {
     // Fetch products on load
@@ -19,6 +20,11 @@ export default function Home() {
     };
     fetchProducts();
   }, []);
+
+  const buttonAction = async (action, slug) => {
+    setLoadingaction(true);
+    // console.log(action, slug);
+  };
 
   const addProduct = async (e) => {
     e.preventDefault();
@@ -99,11 +105,20 @@ export default function Home() {
                   {item.slug} ({item.quantity} available for {item.price})
                 </span>
                 <div className="space-x-8">
-                  <button className="add text-white px-3 py-1 rounded-lg bg-blue-600">
+                  <button
+                    onClick={() => {
+                      buttonAction("minus", item.slug);
+                    }}
+                    disabled={loadingaction}
+                    className="add text-white px-3 py-1 rounded-lg bg-blue-600 disabled:bg-blue-400 cursor-pointer"
+                  >
                     -
                   </button>
                   <span className="sub">{item.quantity}</span>
-                  <button className="add text-white px-3 py-1 rounded-lg bg-blue-600">
+                  <button
+                    disabled={loadingaction}
+                    className="add text-white px-3 py-1 rounded-lg bg-blue-600 disabled:bg-blue-400 cursor-pointer"
+                  >
                     +
                   </button>
                 </div>
