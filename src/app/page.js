@@ -21,9 +21,19 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  const buttonAction = async (action, slug) => {
+  const buttonAction = async (action, slug, initialQuantity) => {
     setLoadingaction(true);
     // console.log(action, slug);
+    const response = await fetch("/api/action", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ action, slug, initialQuantity }),
+    });
+    let r = await response.json();
+    console.log(r);
+    setLoadingaction(false);
   };
 
   const addProduct = async (e) => {
@@ -107,7 +117,7 @@ export default function Home() {
                 <div className="space-x-8">
                   <button
                     onClick={() => {
-                      buttonAction("minus", item.slug);
+                      buttonAction("minus", item.slug, item.quantity);
                     }}
                     disabled={loadingaction}
                     className="add text-white px-3 py-1 rounded-lg bg-blue-600 disabled:bg-blue-400 cursor-pointer"
@@ -116,6 +126,9 @@ export default function Home() {
                   </button>
                   <span className="sub">{item.quantity}</span>
                   <button
+                    onClick={() => {
+                      buttonAction("plus", item.slug, item.quantity);
+                    }}
                     disabled={loadingaction}
                     className="add text-white px-3 py-1 rounded-lg bg-blue-600 disabled:bg-blue-400 cursor-pointer"
                   >
